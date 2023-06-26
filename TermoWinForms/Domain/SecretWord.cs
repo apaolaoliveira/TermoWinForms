@@ -8,6 +8,7 @@
         }
 
         public string secretWord;
+
         public void SetWord()
         {
             Random random = new Random();
@@ -53,7 +54,7 @@
             "GIRAR", "GIZAR", "GLOBO", "GOSTO", "GRAOS", "GRACA", "GRAVA", "GRITO", "GRUDE", "HAVER",
             "HAVER", "HIATO", "HIDRA", "HIFEN", "HIMEL", "HORAS", "HOTEL", "HUMOR", "IDEAL", "IDOLO",
             "IGUAL", "ILESO", "IMUNE", "IRADO", "ISOLA", "JARRA", "JAULA", "JEGUE", "JEITO", "JOGAR",
-            "JOVEM", "JUIZA", "JUIZO", "JULHO", "JUNHO", "JURAR", "JUSTA"
+            "JOVEM", "JUIZA", "JUIZO", "JULHO", "JUNHO", "JURAR", "JUSTA", "RAIOS", "ROSAS", "BATOM"
         };
     }
 }

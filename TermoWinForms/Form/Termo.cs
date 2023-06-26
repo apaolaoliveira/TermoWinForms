@@ -1,7 +1,7 @@
-using System.Collections;
+using static TermoWinForms.Domain.Feedbacks;
 using TermoWinForms.Controls;
 using TermoWinForms.Domain;
-using static TermoWinForms.Domain.Feedbacks;
+using System.Collections;
 
 namespace TermoWinForms
 {
@@ -19,7 +19,7 @@ namespace TermoWinForms
             InitializeComponent();
             ConfigButtons();
             btnReset.Enabled = false;
-            word = new SecretWord();
+            word = new SecretWord();            
             feedback = new Feedbacks();
             rowsList = new List<PainelRowUserControl>()
             {
@@ -55,7 +55,8 @@ namespace TermoWinForms
         private void ButtonsClick(object? sender, EventArgs e)
         {
             Button btn = (Button)sender!;
-            lblText.Text = "";
+            lblText.Visible = false;
+            lblText.Text = string.Empty;
 
             CurrentRow().Typewrite(btn.Text);
         }
@@ -93,11 +94,64 @@ namespace TermoWinForms
         private void BackspaceClick(object? sender, EventArgs e)
         {
             CurrentRow().Backspace();
+        }   
+
+        private string HasErrors(string guess)
+        {
+            if (string.IsNullOrEmpty(guess))
+            {
+                lblText.Visible = true;
+                return "digite uma palavra";
+            }
+
+            if (guess.Length < 5)
+            {
+                lblText.Visible = true;
+                return "só palavras com 5 letras";
+            }
+
+            if (CurrentRow().SameLetter())
+            {
+                lblText.Visible = true;
+                CurrentRow().ResetLabels();
+                return "os campos não devem conter a mesma letra";
+            }
+
+            if (CurrentRow().OnlyVogals())
+            {
+                lblText.Visible = true;
+                CurrentRow().ResetLabels();
+                return "a palavra não deve conter apenas vogais";
+            }
+
+            return string.Empty;
+        }
+
+        private void Result(string guess)
+        {
+            if (Victory(guess))
+            {
+                lblText.Text = "fenomenal";
+                lblText.Visible = true;
+                End();
+            }
+
+            else if (GameOver())
+            {
+                lblText.Text = $"\"{word.secretWord}\"";
+                lblText.Visible = true;
+                End();
+            }
         }
 
         public void TakeGuess(object? sender, EventArgs e)
         {
             guess = CurrentRow().ToString();
+
+            string error = lblText.Text = HasErrors(guess);
+
+            if (error != string.Empty)
+                return;
 
             LetterFeedback[] feedbacks = feedback.CheckGuess(guess, word.secretWord);
 
@@ -105,26 +159,10 @@ namespace TermoWinForms
             ArrayList guessLetters = CurrentRow().GuessLetters();
             ChangeButtonsColor(guessLetters, feedbacks);
 
-            if (string.IsNullOrEmpty(guess))
-            {
-                lblText.Text = "Enter a word.";
-                return;
-            }
-
-            if (Victory(guess))
-            {
-                lblText.Text = "Correct :)";
-                End();
-            }
-
-            else if (GameOver())
-            {
-                lblText.Text = $"\"{word.secretWord.ToLower()}\"";
-                End();
-            }
+            Result(guess);
 
             attempts++;
-        }
+        }        
 
         public void ResetGame(object? sender, EventArgs e)
         {
@@ -132,7 +170,8 @@ namespace TermoWinForms
             feedback = new Feedbacks();
 
             attempts = 0;
-            lblText.Text = "";
+            lblText.Text = string.Empty;  
+            lblText.Visible = false;
             btnReset.Enabled = false;
             pnlButtons.Enabled = true;
 

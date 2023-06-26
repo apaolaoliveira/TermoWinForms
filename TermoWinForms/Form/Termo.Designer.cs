@@ -69,19 +69,23 @@ namespace TermoWinForms
             pnlButtons = new Panel();
             btnReset = new Button();
             lblText = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
             tblWords.SuspendLayout();
             pnlButtons.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
             // 
+            lblTitle.Dock = DockStyle.Fill;
             lblTitle.Font = new Font("Arial Rounded MT Bold", 30F, FontStyle.Regular, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.Snow;
-            lblTitle.Location = new Point(305, 19);
+            lblTitle.Location = new Point(3, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(207, 58);
+            lblTitle.Size = new Size(820, 62);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "TERMO";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tblWords
             // 
@@ -601,14 +605,32 @@ namespace TermoWinForms
             // lblText
             // 
             lblText.AutoSize = true;
-            lblText.BackColor = Color.FromArgb(0, 154, 254);
+            lblText.BackColor = Color.FromArgb(148, 123, 132);
+            lblText.Dock = DockStyle.Fill;
             lblText.FlatStyle = FlatStyle.Flat;
             lblText.Font = new Font("Arial Rounded MT Bold", 20F, FontStyle.Regular, GraphicsUnit.Point);
             lblText.ForeColor = Color.Snow;
-            lblText.Location = new Point(328, 77);
+            lblText.Location = new Point(3, 62);
             lblText.Name = "lblText";
-            lblText.Size = new Size(0, 39);
+            lblText.Size = new Size(820, 63);
             lblText.TabIndex = 37;
+            lblText.Text = "avisos";
+            lblText.TextAlign = ContentAlignment.MiddleCenter;
+            lblText.Visible = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(lblText, 0, 1);
+            tableLayoutPanel1.Controls.Add(lblTitle, 0, 0);
+            tableLayoutPanel1.Location = new Point(1, 8);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(826, 125);
+            tableLayoutPanel1.TabIndex = 38;
             // 
             // Termo
             // 
@@ -616,18 +638,22 @@ namespace TermoWinForms
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(110, 92, 98);
             ClientSize = new Size(826, 917);
-            Controls.Add(lblText);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(btnReset);
             Controls.Add(tblWords);
-            Controls.Add(lblTitle);
             Controls.Add(pnlButtons);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Termo";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Termo";
             tblWords.ResumeLayout(false);
             pnlButtons.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -676,5 +702,6 @@ namespace TermoWinForms
         private PainelRowUserControl row2;
         private PainelRowUserControl row1;
         private Label lblText;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

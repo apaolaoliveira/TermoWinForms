@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Drawing.Design;
-using TermoWinForms.Domain;
+﻿using TermoWinForms.Domain;
+using System.Collections;
 
 namespace TermoWinForms.Controls
 {
@@ -20,6 +19,26 @@ namespace TermoWinForms.Controls
                 label4,
                 label5
             };
+        }
+
+        public bool SameLetter()
+        {
+            char firstLetter = labelsList[0].Text.FirstOrDefault();
+
+            return labelsList.All(label => char.ToUpper(label.Text.FirstOrDefault()) == firstLetter);
+        }
+
+        public bool OnlyVogals()
+        {
+            return labelsList.All(label => label.Text.All(c => "AEIOU".Contains(char.ToUpper(c))));            
+        }
+
+        public void ResetLabels()
+        {
+            foreach (Label label in labelsList)
+            {
+                label.Text = string.Empty;
+            }
         }
 
         public void Typewrite(string letter)
@@ -46,7 +65,7 @@ namespace TermoWinForms.Controls
 
         public override string ToString()
         {
-            string fullGuess = "";
+            string fullGuess = string.Empty;
 
             foreach (Label label in labelsList)
                 fullGuess += label.Text;
@@ -85,7 +104,7 @@ namespace TermoWinForms.Controls
             currentIndex--;
 
             Label selectedLabel = labelsList[currentIndex];
-            selectedLabel.Text = "";
+            selectedLabel.Text = string.Empty;
         }
 
         public void ClearRow()
@@ -94,7 +113,7 @@ namespace TermoWinForms.Controls
 
             foreach (Label label in tblColumns.Controls)
             {
-                label.Text = "";
+                label.Text = string.Empty;
                 label.BackColor = Color.FromArgb(97, 84, 88);
             }
         }
